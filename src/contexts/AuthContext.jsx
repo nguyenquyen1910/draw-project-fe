@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      // TODO: Replace with actual API call to check database
+      // Replace with actual API call to check database
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
