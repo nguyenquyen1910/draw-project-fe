@@ -1,51 +1,38 @@
-import { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ onSwitchToSignup }) => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const { login, error, loading, clearError } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setError('');
+    clearError();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
+    clearError();
 
     if (!formData.username.trim()) {
-      setError('Username is required');
-      setLoading(false);
       return;
     }
 
     if (!formData.password.trim()) {
-      setError('Password is required');
-      setLoading(false);
       return;
     }
-
-    try {
-      const result = await login(formData.username, formData.password);
-      if (!result.success) {
-        setError(result.error || 'Login failed');
-      }
-    } catch {
-      setError('An unexpected error occurred');
-    } finally {
-      setLoading(false);
+    const result = await login(formData.username, formData.password);
+    if (result.success) {
+      navigate("/");
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#333399] px-4">
       <div className="bg-white flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-lg max-w-4xl w-full">
-        
         {/* LEFT IMAGE */}
         <div className="md:w-1/2 w-full">
           <img
@@ -75,7 +62,10 @@ const Login = ({ onSwitchToSignup }) => {
           {/* FORM */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Username or Email
               </label>
               <input
@@ -89,7 +79,10 @@ const Login = ({ onSwitchToSignup }) => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Password
               </label>
               <input
@@ -102,14 +95,16 @@ const Login = ({ onSwitchToSignup }) => {
               />
             </div>
 
-            {error && <p className="text-red-500 text-center text-sm">{error}</p>}
+            {error && (
+              <p className="text-red-500 text-center text-sm">{error}</p>
+            )}
 
             <button
               type="submit"
               disabled={loading}
               className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-all duration-200 disabled:opacity-60"
             >
-              {loading ? 'Logging in...' : 'LOGIN'}
+              {loading ? "Logging in..." : "LOGIN"}
             </button>
           </form>
 
@@ -119,7 +114,7 @@ const Login = ({ onSwitchToSignup }) => {
               Forgot password?
             </a>
             <p className="text-sm text-gray-700 mt-4">
-              Don’t have an account?{' '}
+              Don’t have an account?{" "}
               <button
                 onClick={onSwitchToSignup}
                 className="text-link text-indigo-600 underline bg-transparent border-0 p-0 m-0"
@@ -129,10 +124,13 @@ const Login = ({ onSwitchToSignup }) => {
               </button>
             </p>
 
-
             <div className="text-xs text-gray-400 mt-4">
-              <a href="#!" className="hover:underline mr-1">Terms of use.</a>
-              <a href="#!" className="hover:underline">Privacy policy</a>
+              <a href="#!" className="hover:underline mr-1">
+                Terms of use.
+              </a>
+              <a href="#!" className="hover:underline">
+                Privacy policy
+              </a>
             </div>
           </div>
         </div>
