@@ -54,7 +54,7 @@ const Signup = ({ onSwitchToLogin }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#9A616D] px-4">
+    <div className="flex justify-center items-center min-h-screen bg-[#333399] px-4">
       <div className="bg-white flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-lg max-w-4xl w-full">
         
         {/* LEFT IMAGE */}
@@ -66,7 +66,7 @@ const Signup = ({ onSwitchToLogin }) => {
           />
         </div>
 
-        {/* RIGHT FORM */}
+       
         <div className="md:w-1/2 w-full flex flex-col justify-center px-10 py-12">
           <div className="flex flex-col items-center mb-8">
             <div className="flex items-center mb-3">
@@ -78,14 +78,14 @@ const Signup = ({ onSwitchToLogin }) => {
               >
                 <path d="M224 256A128 128 0 1 0 96 128a128 128 0 0 0 128 128zM313.6 288H286c-22.2 10-46.6 16-72 16s-49.8-6-72-16h-27.6C51.1 288 0 339.1 0 403.2V432a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-28.8C448 339.1 396.9 288 313.6 288z" />
               </svg>
-              <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Create Account</h1>
+              <h1 className="text-5xl font-bold text-gray-900 tracking-tight">Create Account</h1>
             </div>
             <p className="text-gray-600 text-sm text-center">
               Register your new account
             </p>
           </div>
 
-          {/* FORM */}
+          
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">

@@ -43,7 +43,7 @@ const Login = ({ onSwitchToSignup }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#9A616D] px-4">
+    <div className="flex justify-center items-center min-h-screen bg-[#333399] px-4">
       <div className="bg-white flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-lg max-w-4xl w-full">
         
         {/* LEFT IMAGE */}
@@ -67,7 +67,7 @@ const Login = ({ onSwitchToSignup }) => {
               >
                 <path d="M488 192H24c-13.25 0-24 10.75-24 24v80c0 13.25 10.75 24 24 24h464c13.25 0 24-10.75 24-24v-80c0-13.25-10.75-24-24-24zM64 296c-13.25 0-24-10.75-24-24s10.75-24 24-24 24 10.75 24 24-10.75 24-24 24z" />
               </svg>
-              <h1 className="text-3xl font-bold text-gray-900">Draw Project</h1>
+              <h1 className="text-5xl font-bold text-gray-900">Draw Project</h1>
             </div>
             <p className="text-gray-600 text-sm">Sign into your account</p>
           </div>
