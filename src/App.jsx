@@ -1,35 +1,42 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React, { useState, useCallback } from "react";
+import TopBar from "./components/TopBar";
+import LeftToolbar from "./components/LeftToolbar";
+import Canvas from "./components/Canvas";
 
-function App() {
-  const [count, setCount] = useState(0);
+export default function App() {
+  const MIN_SCALE = 0.2;
+  const MAX_SCALE = 3;
+  const STEP = 0.1;
+
+  const [scale, setScale] = useState(1);
+
+  const zoomIn = useCallback(() => {
+    setScale((s) => Math.min(MAX_SCALE, +(s + STEP).toFixed(2)));
+  }, []);
+
+  const zoomOut = useCallback(() => {
+    setScale((s) => Math.max(MIN_SCALE, +(s - STEP).toFixed(2)));
+  }, []);
+
+  const resetZoom = useCallback(() => setScale(1), []);
 
   return (
-    <>
-      <div className="flex justify-center items-center">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="app-root">
+      <TopBar />
+      <LeftToolbar />
+      <Canvas scale={scale} />
+      <div className="zoom-control">
+        <button className="zoom-btn" onClick={zoomOut} disabled={scale <= MIN_SCALE}>
+          −
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <div className="zoom-value">{Math.round(scale * 100)}%</div>
+        <button className="zoom-btn" onClick={zoomIn} disabled={scale >= MAX_SCALE}>
+          +
+        </button>
+        <button className="zoom-btn" onClick={resetZoom} title="Reset zoom">
+          ⟲
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   );
 }
-
-export default App;
